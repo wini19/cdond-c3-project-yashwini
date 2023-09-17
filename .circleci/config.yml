@@ -140,8 +140,8 @@ jobs:
               --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}  
               # exit 1
-      - attach_workspace:
-          at: ~/
+      # - attach_workspace:
+      #     at: ~/
       - run:
           name: Add back-end ip to ansible inventory
           command: |
@@ -150,12 +150,12 @@ jobs:
             \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --filters "Name=tag:project,Values=udapeople-yashwini" \
-              --output text >> .circleci/ansible/inventory.txt
+              --output text >> ~/cdond-c3-project-yashwini/.circleci/ansible/inventory.txt
             # exit 1
       - persist_to_workspace:
           root: ~/
           paths:
-            - .circleci/ansible/inventory.txt
+            - cdond-c3-project-yashwini/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure
       - destroy-environment    
 
