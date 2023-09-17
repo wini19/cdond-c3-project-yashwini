@@ -150,12 +150,12 @@ jobs:
             \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --filters "Name=tag:project,Values=udapeople-yashwini" \
-              --output text >> ~/cdond-c3-project-yashwini/.circleci/ansible/inventory.txt
+              --output text >> ~/project/.circleci/ansible/inventory.txt
             # exit 1
       - persist_to_workspace:
           root: ~/
           paths:
-            - cdond-c3-project-yashwini/.circleci/ansible/inventory.txt
+            - project/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure
       - destroy-environment    
 
