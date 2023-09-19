@@ -269,8 +269,9 @@ jobs:
           name: Install node and npm
           command: |
             yum update
-            yum install nodejs
-            yum install curl
+            sudo yum install curl
+            curl --silent --location https://rpm.nodesource.com/setup_20.x | bash -
+            sudo yum install nodejs
       - attach_workspace:
           at: ~/
       - run: yum install python3
