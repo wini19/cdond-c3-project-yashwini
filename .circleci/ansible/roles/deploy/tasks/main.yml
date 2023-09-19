@@ -14,7 +14,7 @@
     src: ~/project/artifact.tar.gz
     dest: ~/web/artifact.tar.gz
 
--name: Untar artifact 
+- name: Untar artifact 
   shell: |
     cd ~/web
     mkdir backend

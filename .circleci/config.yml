@@ -264,8 +264,6 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/
       - run: yum -y install tar gzip
       - run: 
           name: Install node and npm
@@ -273,7 +271,9 @@ jobs:
             yum update
             yum install nodejs
             yum install curl
-      - run: apt install python3
+      - attach_workspace:
+          at: ~/
+      - run: yum install python3
       - run:
           name: Get backend url
           command: |
