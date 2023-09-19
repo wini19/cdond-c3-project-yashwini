@@ -4,10 +4,15 @@
     path: ~/web
     state: directory
 
-- name: Copy backend artifact
-  template:
-    src: "files/artifact.tar.gz"
-    dest: "~/web/artifact.tar.gz"
+# - name: Copy artifacts zip
+#   template:
+#     src: "files/artifact.tar.gz"
+#     dest: "~/web/artifact.tar.gz"
+
+- name: Copy artifacts zip
+  copy: 
+    src: ~/project/artifact.tar.gz
+    dest: ~/web/artifact.tar.gz
 
 -name: Untar artifact 
   shell: |
@@ -18,6 +23,7 @@
 
 
 - name: Start application
+  become: true
   shell: |
     cd ~/web/backend
     npm install
