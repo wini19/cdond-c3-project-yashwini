@@ -206,7 +206,9 @@ jobs:
             apk update 
             apk upgrade
             apk add --update ansible
-            apk add --no-cache aws-cli
+            apk --no-cache add python3 py3-pip
+            pip3 install --upgrade pip
+            pip3 install --no-cache-dir awscli
             # exit 1
       - run:
           name: Configure server
@@ -258,9 +260,8 @@ jobs:
       - run: 
           name: Install node and npm
           command: |
-            apt update
-            apt install Node.js
-            apt install npm
+            yum update
+            yum install nodejs
             yum install curl
       - run: apt install python3
       - run:
