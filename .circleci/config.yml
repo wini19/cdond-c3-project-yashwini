@@ -253,7 +253,7 @@ jobs:
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
                   # using kvdb.io
-                  curl https://kvdb.io/3F7kRvg2JNu6tZkt1yrqV2/migration_$\{CIRCLE_WORKFLOW_ID:0:7\}  -d '1'
+                  curl -k https://kvdb.io/3F7kRvg2JNu6tZkt1yrqV2/migration_$\{CIRCLE_WORKFLOW_ID:0:7\}  -d '1'
             fi
             # exit 1
      # Here's where you will add some code to rollback on failure  
