@@ -319,7 +319,7 @@ jobs:
             tar -C backend -czvf artifact.tar.gz .
             ## Copy zipped directory to ansible role files 
             cd .circleci/ansible/roles/deploy
-            # mkdir files
+            mkdir files
             cp ../../../../artifact.tar.gz files
             # cd .circleci/ansible
             cd ../..
