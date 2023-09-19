@@ -261,20 +261,16 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli
+      - image: python:3.11-rc-alpine
     steps:
       - checkout
-      - run: yum -y install tar gzip
-      - run: 
-          name: Install node and npm
+      - run:
+          name: Installing dependencies
           command: |
-            yum update
-            yum install curl
-            curl --silent --location https://rpm.nodesource.com/setup_20.x | bash -
-            yum install nodejs
+            apk add --update tar gzip ansible nodejs npm curl
+            pip install awscli
       - attach_workspace:
           at: ~/
-      - run: yum install python3
       - run:
           name: Get backend url
           command: |
@@ -352,6 +348,30 @@ jobs:
       # Here's where you will add some code to rollback on failure
       - destroy-environment
       - revert-migrations
+  
+  # smoke-test:
+  #   docker:
+  #     - image: python:3.11-rc-alpine
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Install dependencies
+  #         command: |
+  #           # your code here
+  #     - run:
+  #         name: Get backend url
+  #         command: |
+  #           # your code here
+  #     - run:
+  #         name: Backend smoke test.
+  #         command: |
+  #           # your code here
+  #     - run:
+  #         name: Frontend smoke test.
+  #         command: |
+  #           # your code here
+  #     # Here's where you will add some code to rollback on failure  
+
 
 workflows:
   default:
