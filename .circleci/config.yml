@@ -227,6 +227,16 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+      - restore_cache:
+          keys: [backend-build]
+      - run:
+          name: Installing Dependencies
+          command: |
+            apt install curl
+            apt install unzip
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
       - run:
           name: Run migrations
           command: |
@@ -312,9 +322,10 @@ jobs:
             apk upgrade
             apk add tar
             apk add gzip
-            apk add --update curl
-            apk add --update ansible
-            apk add --update nodejs npm
+            apk add --update curl ansible nodejs npm
+            apk --no-cache add python3 py3-pip
+            pip3 install --upgrade pip
+            pip3 install --no-cache-dir awscli
       - run:
           name: Deploy backend
           command: |
