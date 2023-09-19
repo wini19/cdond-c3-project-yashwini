@@ -202,8 +202,11 @@ jobs:
           name: Install dependencies
           command: |
             # Your code here
-            yum -y install tar gzip
+            # yum -y install tar gzip
+            apk update 
+            apk upgrade
             apk add --update ansible
+            apk add --no-cache aws-cli
             # exit 1
       - run:
           name: Configure server
@@ -242,6 +245,7 @@ jobs:
             fi
             # exit 1
      # Here's where you will add some code to rollback on failure  
+     - destroy-environment
 
   deploy-frontend:
     docker:
@@ -257,6 +261,7 @@ jobs:
             apt update
             apt install Node.js
             apt install npm
+            yum install curl
       - run: apt install python3
       - run:
           name: Get backend url
@@ -302,11 +307,13 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            yum -y install tar gzip
+            apk update 
+            apk upgrade
+            apk add tar
+            apk add gzip
+            apk add --update curl
             apk add --update ansible
-            apt update
-            apt install Node.js
-            apt install npm
+            apk add --update nodejs npm
       - run:
           name: Deploy backend
           command: |
