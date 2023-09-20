@@ -174,7 +174,7 @@ jobs:
             aws ec2 describe-instances \
             \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --filters "Name=tag:project,Values=udapeople-yashwini" \
+              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --output text >> ~/project/.circleci/ansible/inventory.txt
             # exit 1
       - persist_to_workspace:
@@ -281,7 +281,7 @@ jobs:
             export BACKEND_IP=$(aws ec2 describe-instances \
             \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --filters "Name=tag:project,Values=udapeople-yashwini" \
+              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
@@ -373,7 +373,7 @@ jobs:
             export BACKEND_IP=$(aws ec2 describe-instances \
             \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --filters "Name=tag:project,Values=udapeople-yashwini" \
+              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
