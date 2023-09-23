@@ -83,6 +83,8 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+      - restore_cache:
+          keys: [frontend-build]
       # Restore from cache
       # Your job code here
       - run:
@@ -98,6 +100,8 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+      - restore_cache:
+          keys: [backend-build]
       # Restore from cache
       # Your job code here
       - run:
@@ -113,6 +117,8 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+      - restore_cache:
+          keys: [frontend-build]
       # Restore from cache
       # Your job code here
       - run:
@@ -131,6 +137,8 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+      - restore_cache:
+          keys: [backend-build]
       # Restore from cache
       # Your job code here
       - run:
@@ -228,7 +236,7 @@ jobs:
   run-migrations:
     docker:
       # Docker image here that supports NodeJS
-      - image: circleci/node:13.8.0
+      - image: circleci/node:14.18.1
     steps:
       # Checkout code from git
       - checkout
@@ -255,10 +263,12 @@ jobs:
           name: Send migration results to kvdb.io
           command: |
             # Your code here
+            echo "Contents of migrations_dump.txt: "
+            cat ~/project/backend/migrations_dump.txt
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
                   # using kvdb.io
-                  curl -k https://kvdb.io/3F7kRvg2JNu6tZkt1yrqV2/migration_$\{CIRCLE_WORKFLOW_ID:0:7\}  -d '1'
+                  curl -k https://kvdb.io/3F7kRvg2JNu6tZkt1yrqV2/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
             # exit 1
      # Here's where you will add some code to rollback on failure  
@@ -311,6 +321,8 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+      - restore_cache:
+          keys: [backend-build]
       # Add ssh keys with fingerprint
       - add_ssh_keys:
           fingerprints: ["a6:d5:3b:da:cc:83:25:75:8c:40:b0:bd:e7:03:6b:1f"]
